@@ -19,6 +19,12 @@ uuid = { version = "0.8", features = ["serde", "v4"] }
 regex = "1.5.5"
 lazy_static = "1.4.0"
 
+chrono = "0.4"
+chrono-tz = "0.6"
+parquet = { version = "19.0", features = ["arrow"] }
+arrow = { version = "19.0", features = ["csv", "ipc", "prettyprint", "simd", "chrono-tz"] }
+#arrow = { version = "19", features = ["csv", "ipc", "prettyprint", "js", "simd", "chrono-tz"] }
+
 
 [dev-dependencies]
 anyhow = "1.0"
