@@ -25,6 +25,9 @@ parquet = { version = "19.0", features = ["arrow", "async"] }
 arrow = { version = "19.0", features = ["csv", "ipc", "prettyprint", "simd", "chrono-tz"] }
 #arrow = { version = "19", features = ["csv", "ipc", "prettyprint", "js", "simd", "chrono-tz"] }
 
+[dependencies.apache-avro]
+version = "0.14"
+features = ["snappy", "zstandard", "bzip", "xz"]
 
 [dev-dependencies]
 anyhow = "1.0"
