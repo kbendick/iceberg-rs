@@ -13,7 +13,7 @@ use serde::{
 };
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
-#[serde(rename_all = "lowercase", remote = "Self")]
+#[serde(rename_all = "kebab-case", remote = "Self")]
 /// A Transformation applied to each source column to produce a value.
 pub enum Transform {
     /// Always produces `null`
