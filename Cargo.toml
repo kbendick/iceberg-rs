@@ -21,7 +21,7 @@ lazy_static = "1.4.0"
 
 chrono = "0.4"
 chrono-tz = "0.6"
-parquet = { version = "19.0", features = ["arrow"] }
+parquet = { version = "19.0", features = ["arrow", "async"] }
 arrow = { version = "19.0", features = ["csv", "ipc", "prettyprint", "simd", "chrono-tz"] }
 #arrow = { version = "19", features = ["csv", "ipc", "prettyprint", "js", "simd", "chrono-tz"] }
 
