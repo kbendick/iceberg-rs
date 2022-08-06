@@ -58,7 +58,21 @@ let data = r#"
         "default-sort-order-id": 0
     }
 "#;
- let metadata = serde_json::from_str::<TableMetadataV2>(&data).unwrap();
+let metadata = serde_json::from_str::<TableMetadataV2>(&data).unwrap();
+println!("The metadata location is ${location}", location=metadata.location);
+
+use apache_avro::Reader;
+use std::fs::File;
+use std::io::Read;
+
+let mut file = File::open("/Users/kylebendickson/repos/iceberg-rs/metadata.json").unwrap();
+let mut data = String::new();
+file.read_to_string(&mut data).unwrap();
+
+
+// Avro reader
+// let reader = Reader::new(&input[..]).unwrap();
+
 ```
 
 */

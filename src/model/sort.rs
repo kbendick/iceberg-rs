@@ -56,11 +56,26 @@ pub struct SortOrder {
     pub fields: Vec<SortField>,
 }
 
+pub const UNSORTED: SortOrder = SortOrder { order_id: 0, fields: vec![] };
+
+// const Unsorted for SortOrder {
+//     order_id: 0,
+//     fields: vec!p[]
+// }
+
 #[cfg(test)]
 mod tests {
 
     use super::*;
     use proptest::prelude::*;
+    use crate::model::sort;
+
+    #[test]
+    fn test_unsorted() {
+        let order: SortOrder = sort::UNSORTED;
+        assert_eq!(0, order.order_id);
+        assert_eq!(0, order.fields.len())
+    }
 
     #[test]
     fn test_sort_field() {
