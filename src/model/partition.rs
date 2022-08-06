@@ -16,7 +16,8 @@ use serde::{
 #[serde(rename_all = "kebab-case", remote = "Self")]
 /// A Transformation applied to each source column to produce a value.
 pub enum Transform {
-    /// Always produces `null`
+    /// Always produces `null`.
+    /// Used in the V1 specification when a partition field is dropped.
     Void,
     /// Source value, unmodified
     Identity,
