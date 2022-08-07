@@ -6,8 +6,6 @@ A [SortOrder] is composed of a list of [SortField] where each field has a [Trans
 
 */
 use crate::model::partition::Transform;
-use crate::model::schema;
-use crate::model::schema::SchemaV2;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
@@ -53,7 +51,8 @@ pub struct SortField {
 /// which the sort is applied to the data.
 pub struct SortOrder {
     /// Schema associated with this SortOrder
-    pub schema: schema::SchemaV2,
+    /// TODO - Add back in but compiler is mad.
+    /// pub schema: Option<schema::SchemaV2>,
     /// Identifier for SortOrder, order_id `0` is no sort order.
     pub order_id: i32,
     /// Details of the sort
