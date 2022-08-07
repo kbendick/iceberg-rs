@@ -6,47 +6,51 @@ use lazy_static::lazy_static;
 use regex::Regex;
 use serde::{
     de::{self, IntoDeserializer},
-    Deserialize, Deserializer, Serialize,
+    Deserialize, Deserializer, Serialize, Serializer,
 };
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "lowercase")]
 #[serde(remote = "Self")]
 /// Primitive Types within a schema.
-pub enum PrimitiveType {
-    /// True or False
-    Boolean,
-    /// 32-bit signed integer
-    Int,
-    /// 64-bit signed integer
-    Long,
-    /// 32-bit IEEE 753 floating bit.
-    Float,
-    /// 64-bit IEEE 753 floating bit.
-    Double,
-    /// Fixed point decimal
-    Decimal {
-        /// The number of digits in the number.
-        precision: i32,
-        /// The number of digits to the right of the decimal point.
-        scale: u8,
-    },
-    /// Calendar date without timezone or time.
-    Date,
-    /// Time of day without date or timezone.
-    Time,
-    /// Timestamp without timezone
-    Timestamp,
-    /// Timestamp with timezone
-    Timestampz,
-    /// Arbitrary-length character sequences
-    String,
-    /// Universally Unique Identifiers
-    Uuid,
-    /// Fixed length byte array
-    Fixed(u64),
-    /// Arbitrary-length byte array.
-    Binary,
+pub struct Namespace {
+    /// levels
+    levels: Vec<String>,
+}
+
+impl Namespace {
+    fn is_empty(&self) -> bool {
+        return self.levels.is_empty();
+    }
+}
+
+impl Serialize for Namespace {
+    fn serialize<S>(&self, serializer: S) -> Result<serde::ser::Ok, serde::ser::Error>
+    where
+        S: Serializer,
+    {
+        serializer.serialize_str(&*self.levels.join("."))
+    }
+}
+
+/// Serialize for PrimitiveType with special handling for
+/// Decimal and Fixed types.
+impl<'de> Deserialize<'de> for Namespace {
+    fn deserialize<D>(deserializer: D) -> Result<Self, serde::de::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        let mut this = String::deserialize(deserializer)?;
+        let levels = this.trim().split(".").collect();
+        return Result::Ok(Namespace { levels });
+    }
+
+    fn deserialize_in_place<D>(deserializer: D, place: &mut Self) -> Result<(), serde::de::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        todo!()
+    }
 }
 
 /// Serialize for PrimitiveType wit special handling for

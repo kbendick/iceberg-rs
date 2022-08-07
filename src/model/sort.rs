@@ -6,6 +6,8 @@ A [SortOrder] is composed of a list of [SortField] where each field has a [Trans
 
 */
 use crate::model::partition::Transform;
+use crate::model::schema;
+use crate::model::schema::SchemaV2;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
@@ -50,13 +52,18 @@ pub struct SortField {
 /// The order of the sort fields within the list defines the order in
 /// which the sort is applied to the data.
 pub struct SortOrder {
+    /// Schema associated with this SortOrder
+    pub schema: schema::SchemaV2,
     /// Identifier for SortOrder, order_id `0` is no sort order.
     pub order_id: i32,
     /// Details of the sort
     pub fields: Vec<SortField>,
 }
 
-pub const UNSORTED: SortOrder = SortOrder { order_id: 0, fields: vec![] };
+pub const UNSORTED: SortOrder = SortOrder {
+    order_id: 0,
+    fields: vec![],
+};
 
 // const Unsorted for SortOrder {
 //     order_id: 0,
@@ -67,8 +74,8 @@ pub const UNSORTED: SortOrder = SortOrder { order_id: 0, fields: vec![] };
 mod tests {
 
     use super::*;
-    use proptest::prelude::*;
     use crate::model::sort;
+    use proptest::prelude::*;
 
     #[test]
     fn test_unsorted() {

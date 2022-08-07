@@ -77,6 +77,8 @@ file.read_to_string(&mut data).unwrap();
 
 */
 
+pub mod catalog;
+pub mod namespace;
 pub mod partition;
 pub mod schema;
 pub mod snapshot;
